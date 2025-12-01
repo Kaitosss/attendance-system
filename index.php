@@ -13,7 +13,7 @@
 <body>
 <div class="container">
     <h2>ระบบเข้า-ออกงาน</h2>
-   
+    <!-- <?php if($message) echo "<p>$message</p>"; ?> -->
     <form method="POST">
         <button name="clock">กดเพื่อบันทึกเวลาเข้า/ออก</button>
     </form>
