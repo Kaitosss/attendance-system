@@ -1,0 +1,15 @@
+# Environment
+.env
+
+# Composer
+/vendor/
+
+# IDE
+/.vscode/
+/.idea/
+
+# Logs & temp
+*.log
+*.tmp
+*.swp
+*.bak
