@@ -15,7 +15,6 @@
 
         if($result && password_verify($password,$result['password'])){
             $_SESSION['user_id'] = $result['id'];
-            $_SESSION['user'] = $result['name']; 
             header('Location: index.php');
         }
         else{
