@@ -11,6 +11,7 @@
     $user_id = $_SESSION['user_id'];
     $date = date('Y-m-d');
     $time = date('H:i:s');
+    $limit = "08:00:00";
 
     $stmt = $conn->prepare('SELECT * FROM attendance WHERE user_id = ? AND date = ?');
     $stmt->bind_param('is',$user_id,$date);
@@ -22,7 +23,7 @@
     if(isset($_POST['clock'])){
         if(!$attendance){
             $stmt = $conn->prepare("INSERT INTO attendance (user_id,date,time_in,status) VALUES (?,?,?,?)");
-            $status = "มาปกติ";
+            $status = (strtotime($time) > strtotime($limit)) ? 'สาย' : 'มาปกติ';
             $stmt->bind_param("isss",$user_id,$date,$time,$status);
             $stmt->execute();
             $stmt->close();
@@ -40,7 +41,6 @@
         }
     }
 ?>  
-
 <!DOCTYPE html>
 <html lang="th">
 <head>
@@ -50,13 +50,39 @@
 <link rel="stylesheet" href="styles/index.css">
 </head>
 <body>
-<div class="container">
-    <h2>ระบบเข้า-ออกงาน</h2>
-    <?php if($message) echo "<p>$message</p>"; ?>
-    <form method="POST">
-        <button name="clock">กดเพื่อบันทึกเวลาเข้า/ออก</button>
-    </form>
-    <a href="logout.php">ออกจากระบบ</a>
-</div>
+   <div class="wrapper">
+    <div class="container">
+        <h2>ระบบเข้า-ออกงาน</h2>
+        <?php if($message) echo "<p>$message</p>"; ?>
+        <form method="POST">
+            <button name="clock">กดเพื่อบันทึกเวลาเข้า/ออก</button>
+        </form>
+        <a href="logout.php">ออกจากระบบ</a>
+    </div>
+    
+        <div class="history">
+            <h2>ประวัติการเข้าทำงาน</h2>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>วันที่</th>
+                        <th>เวลาเข้างาน</th>
+                        <th>เวลาออกงาน</th>
+                        <th>สถานะ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><?php echo $attendance['date']; ?></td>
+                        <td><?php echo empty($attendance['time_in']) ? '-' : $attendance['time_in']; ?></td>
+                        <td><?php echo empty($attendance['time_out']) ? '-' : $attendance['time_out']; ?></td>
+                        <td><?php echo $attendance['status']; ?></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+   </div>
+
 </body>
 </html>

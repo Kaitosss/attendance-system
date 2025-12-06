@@ -8,6 +8,13 @@ body {
   margin: 0;
 }
 
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
 .container {
   background: white;
   padding: 40px;
@@ -47,4 +54,53 @@ a {
 
 a:hover {
   color: #000;
+}
+
+.history {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+  width: 450px;
+  text-align: center;
+}
+
+.history h2 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+thead tr {
+  background: #4caf50;
+  color: white;
+}
+
+thead th {
+  padding: 12px 5px;
+}
+
+tbody tr {
+  background: #f9f9f9;
+}
+
+td {
+  padding: 10px 5px;
+  border-bottom: 1px solid #ddd;
+}
+
+tbody tr:hover {
+  background: #e0ffe0;
+}
+
+td.empty {
+  color: #888;
+  font-style: italic;
 }
